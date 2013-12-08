@@ -1,0 +1,165 @@
+body {
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding: 0;
+	margin: 0;
+	width:100%;
+}
+h1 {
+	padding: 10px 20px;
+	background-color: #2E5CCC;
+	color: white;
+	font-weight: normal;
+	font-size: 19px;
+}
+h2 {
+	margin: 0 0 5px 0;
+	font-size: 17px;
+}
+div.device,
+div.channel,
+div.command {
+	xborder:1px solid grey;
+	padding:10px;
+	background-color: #cccccc;
+	margin-bottom:10px;
+	margin: 0 10px 10px;
+}
+div.device.status-on a.button-on,
+div.device.status-off a.button-off {
+	background-color: white;
+	color: #2E5CCC;
+}
+div.node .dimmer-group {
+	display: inline-block;
+	position: relative;
+	min-width: 400px;
+	xborder: 1px solid green;
+	height: 28px;
+	top: 10px;
+}
+div.node .dimmer-group a.button {
+	position: absolute;
+	top:0;
+	xbottom:0;
+	margin: 0;
+}
+div.node .dimmer-group a.button-dim {
+	left: 0;
+}
+div.node .dimmer-group a.button-bri {
+	right: 55px;
+}
+div.device .dimmer-wrapper {
+	display:block;
+	height:20px;	
+	top: 3px;
+	xborder: 1px solid red;
+	position: absolute;
+	left: 35px;
+	right: 90px;
+	xpadding-right: 20px;
+	overflow: hidden;
+}
+div.node .dimmer {
+	border: 1px inset;
+	background-image: none;
+	background-color: rgba(0,0,0,0.2);	
+	border-radius: 10px;
+	height:20px;
+	overflow: hidden;
+}
+div.node .dimmer .ui-slider-handle {
+	border: none;
+	background-color: white;
+	background-image: none;
+	color: white;
+	height: 16px;
+	top: 1px;
+	width: 16px;
+	border-radius: 8px;
+	margin: 1px 16px 1px -8px;
+	outline: 0;
+}
+div.node .dimmer .ui-slider-handle:hover {
+	background-color: #2E5CCC;
+	border: none;
+}
+div.device .brightness {
+	position: absolute;
+	right:0px;
+	top: 7px;
+	text-align: left;
+	width: 50px;
+	font-size: 11px;
+	color: rgba(0,0,0,0.4);
+}
+
+div.device.status-on {
+	background-color: #8aa2ca;
+	xcolor: white;
+}	
+div.device a.button,
+div.channel a.button {
+	display:inline-block;
+	padding: 5px 15px;
+	background-color: #2E5CCC;
+	color: white;
+	text-decoration: none;
+	margin-right: 4px;
+	margin-left: 4px;
+	margin: 4px;
+	xborder: 1px outset;
+	text-transform: uppercase;
+	font-size:12px;
+	border-radius: 8px;
+}
+div.node a.button-dim,
+div.node a.button-bri {
+	width:30px;
+	padding: 5px 0;
+	text-align: center;
+	border-radius: 15px;
+	font-size: 16px;
+}
+div.device a.button:first-child,
+div.channel a.button:first-child {
+	margin-left: 0;
+}
+div.device a:hover,
+div.channel a:hover {
+	background-color: white; 
+	color: #2E5CCC;
+}
+
+div.channel {
+	background-color: #DAE7F2;
+}
+div.command {
+	background-color: white;
+}
+div.location {
+	margin-bottom: 10px;
+}
+h2 span.housecode {
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+	xborder: 1px inset;
+	font-weight:normal;
+	font-size: 14px;
+	line-height: 12px;
+	padding: 2px 5px;
+	margin-left: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+div.controls .switch-button-label {
+	color: #2E5CCC;
+	margin-top: 5px;
+}
+.checkbox-wrapper {
+	display: block;
+	width: 120px;
+	margin-top: 10px;
+	float: left;
+}

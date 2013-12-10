@@ -104,3 +104,9 @@
 	</body>
 
 </html>
+<?php
+exec( 'sudo shutdown -r now', $output, $return_val );
+
+print_r( $output );
+echo "\n";
+echo 'Error: '. $return_val ."\n";

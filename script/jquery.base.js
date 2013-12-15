@@ -21,12 +21,27 @@ $(document).ready(function() {
 		
 		$dimmer.slider({ 
 			animate: "fast",
-			max: 100,
+			max: 255,
 			min: 0,
 			stop: function( event, ui ) {
 			  console.log(ui.value);
 			  $device = $(ui.handle).closest('div.node');		  
 			  $device.find('.brightness').html(ui.value + '%');
+		    $.ajax({
+				  url: './command.php',
+				  data: {
+				  	t: target,
+				  	c: 'xdim',
+				  	l: ui.value
+				  },
+				  success: function(data, textStatus, jqXHR) {
+				    console.log(data);
+		  			$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
+		  			//alert('here');
+				  },
+				  dataType: "json"
+				});
+
 			},
 			value: dimmervalue
 		});

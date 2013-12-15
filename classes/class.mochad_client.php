@@ -100,14 +100,21 @@ class mochad_client {
 	  $zones = array();
 	  foreach($targets as $devicecode) {
 	  	if (preg_match('@^([A-Za-z])(\d+)$@',$devicecode,$matches)) {
-	  		$commands[] = "pl {$devicecode}";
+	  		if ($level!==FALSE) {
+	  		  $commands[] = "pl {$devicecode} xdim " . $level;
+	  		} else {
+	  			$commands[] = "pl {$devicecode} ".($state?'on':'off');
+	  		}
 	  		$zones[($matches[1])]=TRUE;
 	  	}
 	  }
+	  //return $commands;
 	  
-	  foreach ($zones as $zonename=>$zone) {
-	  	$commands[] = "pl ".$zonename." ".($state?'on':'off');
-	  }
+	  //foreach ($zones as $zonename=>$zone) {
+	  //	$commands[] = "pl ".$zonename." ".($state?'on':'off');
+	  //}
+	  
+	  //$commands[] = 'st';
 	  
 	  $response = $this->sendcommand($commands);
 

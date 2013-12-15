@@ -20,7 +20,12 @@
 	    break;
 	    
 		case 'xdim' :
-			$response = $mochadclient->setstate($target,TRUE);
+			$response = $mochadclient->setstate($target,FALSE,$_GET['l']);
+	    break;
+
+		case 'dim' :
+			$command = "pl {$target} dim 10";
+			$response = $mochadclient->sendcommand($command);	
 	    break;
 	    
 		case 'bright' :

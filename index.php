@@ -62,7 +62,7 @@
 					<div class="dimmer-wrapper">
 						<div class="dimmer" id="dimmer-<?php print $housecode;?>" data-value="<?php print ($device->status)?100:0;?>"></div>
 					</div>
-					<a href="./command.php?t=<?php print $housecode;?>&c=bright" data-command="bri" class="button button-bri">+</a> 
+					<a href="./command.php?t=<?php print $housecode;?>&c=bright" data-command="bright" class="button button-bri">+</a> 
 					<div class="brightness"><?php print ($device->status)?100:0;?>% (?)</div>
 				</div>
 				<?php endif;?>
@@ -105,8 +105,8 @@
 
 </html>
 <?php
-exec( 'sudo shutdown -r now', $output, $return_val );
+//exec( 'sudo shutdown -r now', $output, $return_val );
 
-print_r( $output );
-echo "\n";
-echo 'Error: '. $return_val ."\n";
+//print_r( $output );
+//echo "\n";
+//echo 'Error: '. $return_val ."\n";

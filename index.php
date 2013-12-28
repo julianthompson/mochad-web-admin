@@ -29,11 +29,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-		<script src="http://olance.github.io/jQuery-switchButton/jquery.switchButton.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="./script/bootstrap-switch/build/js/bootstrap-switch.js"></script>
+		<script src="./script/slider/js/bootstrap-slider.js"></script>
 		<script src="./script/jquery.base.js"></script>
-		<link rel="stylesheet" href="http://olance.github.io/jQuery-switchButton/jquery.switchButton.css"/>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="./script/bootstrap-switch/build/css/bootstrap3/bootstrap-switch.css">
 		<link rel="stylesheet" href="./style/base.css"/>
+                <link rel="stylesheet" href="./script/slider/css/slider.css">
 	</head>
 	
 	<body>
@@ -53,7 +58,7 @@
 			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span></h2>
 			<div class="location"><?php print $device->location;?></div>
 			<div class="controls">
-				<div class="checkbox-wrapper">
+				<div class="checkbox-wrapper make-switch onoffswitch" data-target="<?php print $housecode;?>">
 			  <input type="checkbox" value="1" <?php print ($device->status)?"checked":"";?> />	
 			  </div>			
 				<?php if ($device->dimmable) : ?>
@@ -66,9 +71,11 @@
 					<div class="brightness"><?php print ($device->status)?100:0;?>% (?)</div>
 				</div>
 				<?php endif;?>
+				<?php if (FALSE)  : ?>
 				<span>Pretend these don't exist ---></span>
 				<a href="./command.php?t=<?php print $housecode;?>&c=on" data-command="on" class="button button-on">On</a> 
 				<a href="./command.php?t=<?php print $housecode;?>&c=off" data-command="off" class="button button-off">Off</a> 
+				<?php endif; ?>
 			</div>
 		
 		</div>

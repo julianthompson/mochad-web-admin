@@ -50,7 +50,13 @@ div.node .dimmer-group a.button-dim {
 div.node .dimmer-group a.button-bri {
 	right: 55px;
 }
-div.device .dimmer-wrapper {
+div.node .slider.slider-horizontal { 
+	position: absolute;
+	left: 35px;
+	right: 90px;
+	width: 270px;
+}
+div.device .xdimmer-wrapper {
 	display:block;
 	height:20px;	
 	top: 3px;
@@ -61,13 +67,12 @@ div.device .dimmer-wrapper {
 	xpadding-right: 20px;
 	overflow: hidden;
 }
-div.node .dimmer {
+div.node .slider-track {
 	border: 1px inset;
 	background-image: none;
 	background-color: rgba(0,0,0,0.2);	
 	border-radius: 10px;
-	height:20px;
-	overflow: hidden;
+	margin-top:4px;
 }
 div.node .dimmer .ui-slider-handle {
 	border: none;
@@ -158,8 +163,10 @@ div.controls .switch-button-label {
 	margin-top: 5px;
 }
 .checkbox-wrapper {
-	display: block;
-	width: 120px;
-	margin-top: 10px;
-	float: left;
+	xdisplay: block;
+	xwidth: 120px;
+	xmargin-top: 10px;
+	xfloat: left;
+	height:30px;
+	margin-right:15px;
 }

@@ -1,14 +1,30 @@
 $(document).ready(function() {
 
-	$("input[type=checkbox]").switchButton({
-	  on_label: 'ON',
-	  off_label: 'OFF',
-	  width: 40,
-	  height: 20,
-	  button_width: 20
-	}).change(function() {
-		console.log(this);
+
+	$('.make-switch').on('switch-change', function (e, data) {
+		var $el = $(data.el)
+		var value = data.value;
+		var target = $(this).closest('div.node').data('id');
+		console.log(e, $el, value);
+
+		$.ajax({
+			url: './command.php',
+			data: {
+				t: target,
+			  	c: (value)?'on':'off'
+			},
+			success: function(data, textStatus, jqXHR) {
+				console.log(data);
+		  		$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
+		  		//alert('here');
+			},
+			dataType: "json"
+		});
+		
 	});
+	
+	//$('div.onoffswitch').bootstrapSwitch();
+
 
 	$( "div.device" ).each(function(index,value) {
 		
@@ -23,7 +39,7 @@ $(document).ready(function() {
 			animate: "fast",
 			max: 255,
 			min: 0,
-			stop: function( event, ui ) {
+			slideStop: function( event, ui ) {
 			  console.log(ui.value);
 			  $device = $(ui.handle).closest('div.node');		  
 			  $device.find('.brightness').html(ui.value + '%');

@@ -130,7 +130,7 @@ class mochad_client {
 	  return $responses;
 	}
 	
-		
+
 	private function process_response_status($responses) {
 
 		$responselen = count($responses);

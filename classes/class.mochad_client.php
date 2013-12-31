@@ -10,7 +10,7 @@ class mochad_client {
 	private $host = "127.0.0.1";
 	private $port = "1099";
 	private $socket = NULL;
-	private $status = array();
+	public $status = array();
 	private $selected = array();
 	
 	
@@ -69,26 +69,26 @@ class mochad_client {
 	function sendcommand($command) {
 	  //echo 'sendcommand'.$command;
 	  $this->connect();
+	  if (!$command) $command=array();
 	  if (!is_array($command)) $command = array($command);
+	  $command[] = 'st';
 	  $commandimploded = implode(MOCHAD_CLIENT_NEWLINE, $command) . MOCHAD_CLIENT_NEWLINE;
 		fwrite($this->socket, $commandimploded);
     stream_set_timeout($this->socket, 1);
     usleep(800);
     $responses = $this->readresponse(1000000, "End status");
-    //usleep(200);
     //$this->close(); 
-    return $responses;
+	$this->process_responses($responses);
+	$responseobj = new StdClass();
+  	$responseobj->command = $command;
+  	$responseobj->response = $responses;
+	$responseobj->status = $this->status;
+	return $responseobj;
 	}
 
 
 	function getstatus() {
-		$command = 'st';
-		$responses = $this->sendcommand($command);
-	  $responseobj = new StdClass();
-  	$responseobj->command = $command;
-		$responseobj->response = $this->process_response_status($responses);
-		
-		return $responseobj;		
+		return $this->sendcommand(FALSE);
 	}
 
 	
@@ -108,30 +108,15 @@ class mochad_client {
 	  		$zones[($matches[1])]=TRUE;
 	  	}
 	  }
-	  //return $commands;
 	  
-	  //foreach ($zones as $zonename=>$zone) {
-	  //	$commands[] = "pl ".$zonename." ".($state?'on':'off');
-	  //}
 	  
-	  //$commands[] = 'st';
-	  
-	  $response = $this->sendcommand($commands);
+	  return $this->sendcommand($commands);
 
-	  $responseobj = new StdClass();
-  	$responseobj->command = $commands;
-  	$responseobj->response = $this->process_response_onoff($response);
-		
-		return $responseobj;
 	}
 	
 	
-	private function process_response_onoff($responses) {
-	  return $responses;
-	}
-	
 
-	private function process_response_status($responses) {
+	private function process_responses($responses) {
 
 		$responselen = count($responses);
 
@@ -157,6 +142,7 @@ class mochad_client {
 				
 				case 'Device status':
 					//echo "Device status data :\n";
+
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];
@@ -200,7 +186,7 @@ class mochad_client {
 			
 			}
 			
-			//return 'xxxx';//$this->status;
+			//return $this->status;
 			//echo $response->data;
 		}
 		

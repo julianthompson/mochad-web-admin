@@ -5,7 +5,7 @@
 	
 	$mochadclient = new mochad_client();
 	$command = 'st';
-	$response = '';
+	$response = new StdClass;
 	$target = isset($_GET['t'])?trim($_GET['t']):FALSE;
 	//die($target);
 	switch($_GET['c']) {
@@ -33,11 +33,9 @@
 			$response = $mochadclient->sendcommand($command);	
 	    break;
 	    
-	  default :
-	    $response = $mochadclient->getstatus();
-	    break;
 	}	
 	
+  //$response->status = $mochadclient->getstatus();
   print json_encode($response);
   //print json_encode($_GET);
   $mochadclient->close();

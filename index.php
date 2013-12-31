@@ -13,8 +13,8 @@
   foreach ($devices as &$device) {
     $housecode = strtoupper($device->housecode);
     $code = $device->code;
-    if (isset($responseobj->response[$housecode][$code])) {
-  		$device->status = $responseobj->response[$housecode][$code]==1?TRUE:FALSE;
+    if (isset($responseobj->status[$housecode][$code])) {
+  		$device->status = $responseobj->status[$housecode][$code]==1?TRUE:FALSE;
   	} else {
   		$device->status = FALSE;
   	}

@@ -17,6 +17,7 @@ $(document).ready(function() {
 				console.log(data);
 		  		$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
 		  		//alert('here');
+				process_status(data.status);
 			},
 			dataType: "json"
 		});
@@ -36,15 +37,14 @@ $(document).ready(function() {
 		}
 		
 		$dimmer.slider({ 
-			animate: "fast",
-			max: 255,
-			min: 0,
-			slideStop: function( event, ui ) {
-			  console.log(ui.value);
-			  $device = $(ui.handle).closest('div.node');		  
-			  $device.find('.brightness').html(ui.value + '%');
-		    $.ajax({
-				  url: './command.php',
+			max: 100,
+			min: 0
+		}).on('slideStop', function( event) {
+			console.log($(this)[0].slider('getvalue'));
+			$device = $(ui.handle).closest('div.node');		  
+			$device.find('.brightness').html(ui.value + '%');
+			$.ajax({
+				url: './command.php',
 				  data: {
 				  	t: target,
 				  	c: 'xdim',
@@ -56,10 +56,8 @@ $(document).ready(function() {
 		  			//alert('here');
 				  },
 				  dataType: "json"
-				});
+			});
 
-			},
-			value: dimmervalue
 		});
 		
 		$(this).find('a.button').each(function(index,value) {
@@ -84,6 +82,22 @@ $(document).ready(function() {
 		});
 		
 	});
+
+	function process_status(status) {
+		$.each(status, function(housecode) {
+			$.each(this, function(index) {
+				var id = housecode+index;
+				id = id.toLowerCase();
+				console.log(id);
+				console.log(this);
+				if (this=='0') {
+					$('.node[data-id='+id+']').removeClass('status-on');
+				} else {
+					$('.node[data-id='+id+']').addClass('status-on');
+				}
+			});
+		});
+	}
 	
 	//alert('loaded');
 });

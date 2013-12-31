@@ -25,6 +25,7 @@ div.command {
 	background-color: #cccccc;
 	margin-bottom:10px;
 	margin: 0 10px 10px;
+	min-width:300px;
 }
 div.device.status-on a.button-on,
 div.device.status-off a.button-off {
@@ -34,10 +35,11 @@ div.device.status-off a.button-off {
 div.node .dimmer-group {
 	display: inline-block;
 	position: relative;
-	min-width: 400px;
+	min-width: 300px;
 	xborder: 1px solid green;
 	height: 28px;
 	margin-bottom: 15px;
+	margin-top:10px;
 }
 div.node .dimmer-group a.button {
 	position: absolute;
@@ -50,12 +52,14 @@ div.node .dimmer-group a.button-dim {
 }
 div.node .dimmer-group a.button-bri {
 	right: 55px;
+	right: 0px;
 }
 div.node .slider.slider-horizontal { 
 	position: absolute;
 	left: 40px;
-	top: 5px;
+	top: 4px;
 	right: 95px;
+	right: 40px;
 	width: auto;
 	display:block;
 }
@@ -66,7 +70,9 @@ div.node .slider.slider-horizontal .slider-selection {
 	background-color: #428BCA;
 	background-image: none;
 	border: none;
-
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 div.node .slider.slider-horizontal .slider-handle { 
 	opacity: 1;
@@ -119,6 +125,11 @@ div.device .brightness {
 	font-size: 11px;
 	color: rgba(0,0,0,0.4);
 }
+div.device .brightnesslevel {
+	color: rgba(0,0,0,0.4);
+	font-size:14px;
+	margin-left: 10px;
+}
 
 div.device.status-on {
 	background-color: #8aa2ca;
@@ -140,10 +151,10 @@ div.channel a.button {
 	border-radius: 8px;
 }
 .tooltip-inner { 
-	background-color: rgba(0,0,0,0.1);
+	background-color: rgba(0,0,0,0.2);
 }
 .tooltip.top .tooltip-arrow {
-	border-top-color: rgba(0,0,0,0.1);
+	border-top-color: rgba(0,0,0,0.2);
 }
 div.node a.button-dim,
 div.node a.button-bri {
@@ -204,4 +215,6 @@ div.controls .switch-button-label {
 	height:30px;
 	margin-right:15px;
 	margin-bottom: 15px;
+	margin-top: 9px;
 }
+

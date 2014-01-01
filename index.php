@@ -6,7 +6,7 @@
 	$channels = array('All'=>'');
 	
 	$mochadclient = new mochad_client();
-	$mochadclient->debug = MOCHAD_CLIENT_DEBUG;
+	$mochadclient->dummyoutput = MOCHAD_DUMMY_OUTPUT;
   $responseobj = $mochadclient->getstatus();
   $mochadclient->close();
   foreach ($devices as &$device) {

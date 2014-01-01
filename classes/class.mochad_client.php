@@ -12,7 +12,7 @@ class mochad_client {
 	private $socket = NULL;
 	public $status = array();
 	private $selected = array();
-	public $debug = FALSE;
+	public $dummyoutput = FALSE;
 	
 	
 	function __construct($host="127.0.0.1",$port="1099") {
@@ -38,7 +38,7 @@ class mochad_client {
 	
 	function readresponse($length, $end) {
 		
-		if ($this->debug) {
+		if ($this->dummyoutput) {
 			$str = "01/01 20:43:33 Device status\n01/01 20:43:33 House A: 1=0,2=0,3=0\n01/01 20:43:33 House B: 1=0,3=0\n01/01 20:43:33 Security sensor status\n01/01 20:43:33 End status";			
 		} else {
 			// get file pointer

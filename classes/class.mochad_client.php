@@ -24,8 +24,10 @@ class mochad_client {
 	
 	function connect() {
 		if (gettype($this->socket)!='resource') {
-			$url = "tcp://{$this->host}:{$this->port}";
-			$this->socket = stream_socket_client($url, $errno, $errstr, 0);   
+			if (!$this->dummyoutput) {
+				$url = "tcp://{$this->host}:{$this->port}";
+				$this->socket = stream_socket_client($url, $errno, $errstr, 0); 
+			}  
 		}	
 	}
 

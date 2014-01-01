@@ -12,6 +12,7 @@ class mochad_client {
 	private $socket = NULL;
 	public $status = array();
 	private $selected = array();
+	public $debug = FALSE;
 	
 	
 	function __construct($host="127.0.0.1",$port="1099") {
@@ -37,10 +38,13 @@ class mochad_client {
 	
 	function readresponse($length, $end) {
 		
-		// get file pointer
-		$current = ftell($this->socket);
-		
-		$str = fread($this->socket, $length);
+		if ($this->debug) {
+			$str = "01/01 20:43:33 Device status\n01/01 20:43:33 House A: 1=0,2=0,3=0\n01/01 20:43:33 House B: 1=0,3=0\n01/01 20:43:33 Security sensor status\n01/01 20:43:33 End status";			
+		} else {
+			// get file pointer
+			$current = ftell($this->socket);
+			$str = fread($this->socket, $length);
+		} 
 		
 		$responses = preg_split('/\n|\r/', $str, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -149,7 +153,7 @@ class mochad_client {
 						$status = explode(',',$matches[2]);
 						foreach($status as $value) {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
-								$this->status[$housecode][($keyvalue[1])] = $keyvalue[2];
+								$this->status[$housecode][($keyvalue[1])] = intval($keyvalue[2]);
 							}
 						}
 						//echo print_r($matches,TRUE);

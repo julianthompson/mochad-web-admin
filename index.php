@@ -1,6 +1,4 @@
 <?php
-	define('MOCHAD_CLIENT_DEBUG',FALSE);
-
 	include "./classes/class.mochad_client.php";
 	include "./classes/class.JSObject.php";
 	include "./config.php";

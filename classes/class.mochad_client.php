@@ -17,14 +17,14 @@ class mochad_client {
 	
 	function __construct($host="127.0.0.1",$port="1099") {
 		$this->host = $host;
-		$this->port = $port;
-		$this->connect();	
+		$this->port = $port;	
 	}
 	
 	
 	function connect() {
 		if (gettype($this->socket)!='resource') {
 			if (!$this->dummyoutput) {
+				die('xxxxxxy');
 				$url = "tcp://{$this->host}:{$this->port}";
 				$this->socket = stream_socket_client($url, $errno, $errstr, 0); 
 			}  
@@ -33,7 +33,7 @@ class mochad_client {
 
 
 	function close() {
-		fclose($this->socket); 
+		if (!$this->dummyoutput) fclose($this->socket); 
 		$this->socket = NULL;
 	} 
 	
@@ -79,9 +79,11 @@ class mochad_client {
 	  if (!is_array($command)) $command = array($command);
 	  $command[] = 'st';
 	  $commandimploded = implode(MOCHAD_CLIENT_NEWLINE, $command) . MOCHAD_CLIENT_NEWLINE;
-		fwrite($this->socket, $commandimploded);
-    stream_set_timeout($this->socket, 1);
-    usleep(800);
+		if (!$this->dummyoutput) {
+			fwrite($this->socket, $commandimploded);
+	    stream_set_timeout($this->socket, 1);
+	    usleep(800);
+    }
     $responses = $this->readresponse(1000000, "End status");
     //$this->close(); 
 	$this->process_responses($responses);

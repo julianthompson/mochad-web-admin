@@ -109,8 +109,10 @@ $(document).ready(function() {
 				//console.log(id);
 				//console.log(this);
 				if (this.status==0) {
+					//$('.node[data-id='+id+']').find('.slider').slider('disable');
 					$('.node[data-id='+id+']').removeClass('status-on');
 				} else {
+					//$('.node[data-id='+id+']').find('.slider').slider('enable');
 					$('.node[data-id='+id+']').addClass('status-on');
 				}
 			});

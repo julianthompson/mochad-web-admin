@@ -9,15 +9,6 @@
 	$mochadclient->dummyoutput = MOCHAD_DUMMY_OUTPUT;
   $responseobj = $mochadclient->getstatus();
   $mochadclient->close();
-  
-  //print_r($responseobj);die();
-  foreach ($devices as $devicecode=>&$device) {
-    if (isset($responseobj->status[$devicecode]->status)) {
-  		$device->status = $responseobj->status[$devicecode]->status==1?TRUE:FALSE;
-  	} else {
-  		$device->status = FALSE;
-  	}
-  }
 
 ?>
 
@@ -44,43 +35,43 @@
 	<body>
 
 		<h1>X10 Appliance Control</h1>
+		
+		<?php //print_r($devices);?>
 	
 		<?php foreach ($devices as $housecode => &$device) : ?>
 	
 		<?php $channels[(strtoupper($device->housecode))] = $device->housecode; ?>
+		
+		<?php $devicestate = (isset($responseobj->status[$housecode])) ? $responseobj->status[$housecode] : new stdClass; ?>
+		<?php if (!isset($devicestate->status)) $devicestate->status = 0;?>
+		
+		<?php //print_r($devicestate);?>
 	
-		<div class="node device <?php print ($device->status?'status-on':'status-off'); ?>" data-id="<?php print $housecode;?>">
+		<div class="node device <?php print ($devicestate->status?'status-on':'status-off'); ?>" data-id="<?php print $housecode;?>">
 		
 			<?php if (MOCHAD_CLIENT_DEBUG) : ?>
 			<pre><?php print_r($device);?></pre>
 			<?php endif; ?>
 			
-			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span> <?php if ($device->dimmable) : ?><span class="brightnesslevel" id="node-<?php print $housecode;?>-brightness"><?php print ($device->status)?100:0;?>%</span><?php endif;?></h2>
+			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span> <?php if ($device->dimmable) : ?><span class="brightnesslevel" id="node-<?php print $housecode;?>-brightness"><?php print ($devicestate->level);?>%</span><?php endif;?></h2>
 			<div class="location"><?php print $device->location;?></div>
 			<div class="controls">
 				<div class="checkbox-wrapper make-switch onoffswitch" data-target="<?php print $housecode;?>">
-			  <input type="checkbox" value="1" <?php print ($device->status)?"checked":"";?> />	
-			  </div>			
+			  <input type="checkbox" value="1" <?php print ($devicestate->status)?"checked":"";?> />	
+			  </div>		
+			  
+			  	
 				<?php if ($device->dimmable) : ?>
 				<div class="dimmer-group">
 				  <i class="fa fa-moon-o dimbulb"></i>
-				  <!--
-					<a href="./command.php?t=<?php print $housecode;?>&c=dim" data-command="dim" class="button button-dim">-</a> 
-					-->
 					<div class="dimmer-wrapper">
-						<input class="dimmer" id="dimmer-<?php print $housecode;?>" data-slider-id='slider-<?php print $housecode;?>' type="text" data-slider-min="0" data-slider-max="100" data-slider-enabled="<?php print ($device->status)?'true':'false';?>" data-slider-step="5" data-slider-value="<?php print ($device->status)?100:0;?>"/>
+						<input class="dimmer" id="dimmer-<?php print $housecode;?>" data-slider-id='slider-<?php print $housecode;?>' type="text" data-slider-min="0" data-slider-max="100" data-slider-enabled="<?php print ($devicestate->status)?'true':'false';?>" data-slider-step="5" data-slider-value="<?php print ($devicestate->level);?>"/>
 					</div>
 				  <i class="fa fa-sun-o brightbulb"></i>
-					<!--
-					<a href="./command.php?t=<?php print $housecode;?>&c=bright" data-command="bright" class="button button-bri">+</a> 
-					-->
 				</div>
 				<?php endif;?>
-				<?php if (FALSE)  : ?>
-				<span>Pretend these don't exist ---></span>
-				<a href="./command.php?t=<?php print $housecode;?>&c=on" data-command="on" class="button button-on">On</a> 
-				<a href="./command.php?t=<?php print $housecode;?>&c=off" data-command="off" class="button button-off">Off</a> 
-				<?php endif; ?>
+				
+				
 			</div>
 		
 		</div>

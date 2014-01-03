@@ -102,7 +102,7 @@ class mochad_client {
 	  			//$status[$housecode][($keyvalue[1])]->level
 	  			if (!$this->status[$devicecode]) $this->status[$devicecode] = new StdClass;
 	  		  $commands[] = "pl {$devicecode} xdim " . $level;
-	  		  $this->status[$devicecode] = $level;
+	  		  $this->status[$devicecode]->level = intval($level);
 	  		} else {
 	  			$commands[] = "pl {$devicecode} ".($state?'on':'off');
 	  		}
@@ -156,12 +156,13 @@ class mochad_client {
 						foreach($status as $value) {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
 								$devicecode = strtolower($housecode) . $keyvalue[1];
-								if (!isset($this->status[$devicecode])) $this->status[$devicecode] = new StdClass;
+								if (!$this->status[$devicecode] instanceof StdClass) {
+									$this->status[$devicecode] = new StdClass;
+								}
 							  $device = $this->status[$devicecode];
-							  //print_r($device);die();
 								$device->status = intval($keyvalue[2]);
 								if (!isset($device->level)) $device->level = ($device->status==1)?100:0;
-								
+								//print_r('y');
 							}
 						}
 						//echo print_r($matches,TRUE);
@@ -179,7 +180,9 @@ class mochad_client {
 						foreach($status as $value) {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
 								$devicecode = strtolower($housecode) . $keyvalue[1];
-								if (!isset($this->status[$devicecode])) $this->status[$devicecode] = new StdClass;
+								if (!$this->status[$devicecode] instanceof StdClass) {
+									$this->status[$devicecode] = new StdClass;
+								}
 							  $device = $this->status[$devicecode];
 							  
 								$device->status = intval($keyvalue[2]);

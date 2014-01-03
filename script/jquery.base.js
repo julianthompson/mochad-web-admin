@@ -109,10 +109,9 @@ $(document).ready(function() {
 			var sliderobj = ($dimmer.length>0) ? $dimmer.data('slider'):null;
 			var $node = $('.node[data-id='+nodeid+']');
 
-			console.log('slider', sliderobj);
-
 			if (sliderobj) {
-					sliderobj.setValue(this.level);
+				console.log('slider', this.level, sliderobj);
+				sliderobj.setValue(this.level);
 			}
 			
 			if (this.status==0) {

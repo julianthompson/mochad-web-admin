@@ -54,20 +54,34 @@ div.node .dimmer-group a.button-bri {
 	right: 55px;
 	right: 0px;
 }
+
+div.node input.dimmer {
+	position: absolute;
+	left: 35px;
+	top: 4px;
+	right: 40px;
+	width: auto;
+	display:block;
+}
 div.node .slider.slider-horizontal { 
 	position: absolute;
-	left: 40px;
+	left: 35px;
 	top: 4px;
 	right: 95px;
-	right: 40px;
+	right: 35px;
 	width: auto;
 	display:block;
 }
 div.node .slider.slider-horizontal .slider-track { 
 	border:none;
 }
+
+div.node .slider.slider-disabled .slider-track {
+	background-color: rgba(0,0,0,0.1);
+	background-image: none;
+}
 div.node .slider.slider-horizontal .slider-selection { 
-	background-color: #428BCA;
+	background-color: rgba(255,255,255,0.7);
 	background-image: none;
 	border: none;
 	-webkit-box-shadow: none;
@@ -78,6 +92,10 @@ div.node .slider.slider-horizontal .slider-handle {
 	opacity: 1;
 	border: 2px solid white;
 	background: #428bca;
+}
+div.node .slider.slider-horizontal.slider-disabled .slider-handle {
+	background: #CCCCCC;
+	border: 2px solid rgba(255,255,255,0.5);
 }
 .has-switch {
 	vertical-align: top;
@@ -218,3 +236,29 @@ div.controls .switch-button-label {
 	margin-top: 9px;
 }
 
+.tooltip.top {
+	top: -30px;
+	xheight: 20px;
+}
+
+div.dimmer-group i.fa {
+	position: absolute;
+	width:30px;
+	height:30px;
+	background-color: transparent;
+	color: rgba(255,255,255,0.7);
+	font-size: 18px;
+	line-height: 28px;
+}
+
+div.dimmer-group i.dimbulb {
+	left:0;
+	right:auto;
+	text-align: left;
+}
+
+div.dimmer-group i.brightbulb {
+	right:0;
+	left:auto;
+	text-align: right;
+}

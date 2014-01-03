@@ -4,6 +4,7 @@
 	include "./config.php";
 	
 	$mochadclient = new mochad_client();
+	$mochadclient->dummyoutput = MOCHAD_DUMMY_OUTPUT;
 	$command = 'st';
 	$response = new StdClass;
 	$target = isset($_GET['t'])?trim($_GET['t']):FALSE;
@@ -15,28 +16,16 @@
 	    break;
 
 		case 'off' :
-		  //$response = 'OFF';
 			$response = $mochadclient->setstate($target,FALSE);
 	    break;
 	    
 		case 'xdim' :
 			$response = $mochadclient->setstate($target,FALSE,$_GET['l']);
 	    break;
-
-		case 'dim' :
-			$command = "pl {$target} dim 10";
-			$response = $mochadclient->sendcommand($command);	
-	    break;
-	    
-		case 'bright' :
-			$command = "pl {$target} bright 10";
-			$response = $mochadclient->sendcommand($command);	
-	    break;
 	    
 	}	
 	
-  //$response->status = $mochadclient->getstatus();
   print json_encode($response);
-  //print json_encode($_GET);
+
   $mochadclient->close();
 ?>

@@ -5,66 +5,84 @@ $(document).ready(function() {
 		var $el = $(data.el)
 		var value = data.value;
 		var target = $(this).closest('div.node').data('id');
-		console.log(e, $el, value);
+		//console.log(e, $el, value);
 
 		$.ajax({
 			url: './command.php',
 			data: {
 				t: target,
-			  	c: (value)?'on':'off'
+			  c: (value)?'on':'off'
 			},
+			dataType: "json",
 			success: function(data, textStatus, jqXHR) {
 				console.log(data);
-		  		$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
-		  		//alert('here');
+		  	$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
 				process_status(data.status);
-			},
-			dataType: "json"
+			}
 		});
 		
 	});
-	
-	//$('div.onoffswitch').bootstrapSwitch();
 
 
 	$( "div.device" ).each(function(index,value) {
 		
 		var target = $(this).data('id');
-		$dimmer = $(this).find('div.dimmer');
-		
-		if ($dimmer) {
-			var dimmervalue = $dimmer.data('value');
-		}
-		
-		$dimmer.slider({ 
-			max: 100,
-			min: 0
-		}).on('slideStop', function( event) {
-			console.log($(this)[0].slider('getvalue'));
-			$device = $(ui.handle).closest('div.node');		  
-			$device.find('.brightness').html(ui.value + '%');
-			$.ajax({
-				url: './command.php',
+		$dimmer = $(this).find('input.dimmer');
+		var $brightness = $(this).find('.brightnesslevel');
+
+		try {
+			$dimmer.slider({ 
+				max: 100,
+				min: 0,
+				step: 5
+			}).on('slideStop', function(event) {
+				var $this = $(this);
+				var sliderdata = $this.data('slider');
+				var slidervalue = sliderdata.getValue();
+				console.log(slidervalue);
+				$brightness.text(event.value + '%');
+				$.ajax({
+					url: './command.php',
 				  data: {
 				  	t: target,
 				  	c: 'xdim',
-				  	l: ui.value
+				  	l: slidervalue
 				  },
 				  success: function(data, textStatus, jqXHR) {
-				    console.log(data);
+						console.log(data);
 		  			$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
-		  			//alert('here');
+						process_status(data.status);
 				  },
 				  dataType: "json"
+				});
+			}).on('slide', function(event) {
+					$brightness.text(event.value + '%');
+					console.log('move');
 			});
-
-		});
+			
+		} catch(e) {
 		
+		};
+
 		$(this).find('a.button').each(function(index,value) {
 			$(this).click(function(e) {
 		    e.preventDefault();
 		    var command = $(this).data('command');
 		    console.log(command+':'+target);
+		    switch(command) {
+		    	case 'bright':
+		    	  
+		    		var $node = $('.node[data-id='+target+']');
+		    		var $slider = $node.find('.slider')
+		    		var sliderdata = $slider.data('slider');
+		    		//var slidervalue = $slider.getValue();
+		    		console.log(sliderdata);//.data('slider').getValue());
+		    	break;
+		    	
+		    	case 'dim':
+		    		
+		    	break;
+		    }
 		    $.ajax({
 				  url: './command.php',
 				  data: {
@@ -74,7 +92,7 @@ $(document).ready(function() {
 				  success: function(data, textStatus, jqXHR) {
 				    console.log(data);
 		  			$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
-		  			//alert('here');
+						process_status(data.status);
 				  },
 				  dataType: "json"
 				});
@@ -88,9 +106,9 @@ $(document).ready(function() {
 			$.each(this, function(index) {
 				var id = housecode+index;
 				id = id.toLowerCase();
-				console.log(id);
-				console.log(this);
-				if (this=='0') {
+				//console.log(id);
+				//console.log(this);
+				if (this.status==0) {
 					$('.node[data-id='+id+']').removeClass('status-on');
 				} else {
 					$('.node[data-id='+id+']').addClass('status-on');
@@ -98,8 +116,7 @@ $(document).ready(function() {
 			});
 		});
 	}
-	
-	//alert('loaded');
+
 });
 
 

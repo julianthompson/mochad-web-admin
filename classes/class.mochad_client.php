@@ -22,8 +22,8 @@ class mochad_client {
 	
 	
 	function connect() {
-		if (gettype($this->socket)!='resource') {
-			if (!$this->dummyoutput) {
+		if (!$this->dummyoutput) {
+			if (gettype($this->socket)!='resource') {
 				$url = "tcp://{$this->host}:{$this->port}";
 				$this->socket = stream_socket_client($url, $errno, $errstr, 0); 
 			}  
@@ -56,23 +56,12 @@ class mochad_client {
 			$responseobj->timestamp = strtotime($matches[1]);
 			$responseobj->data = trim($matches[2]);
 			$responses[$key] = $responseobj;
-			//if (preg_match($responseobj->response,))
 		}
 		return $responses;
-		/*
-		$i = strpos($str, $end);
-		if ($i === FALSE) {
-		  return $str;   
-		} else {
-		  fseek($fp, $current + $i + strlen($end));
-		  return substr($str, 0, $i);
-		}
-		*/
 	}
 
 
 	function sendcommand($command) {
-	  //echo 'sendcommand'.$command;
 	  $this->connect();
 	  if (!$command) $command=array();
 	  if (!is_array($command)) $command = array($command);
@@ -85,12 +74,12 @@ class mochad_client {
     }
     $responses = $this->readresponse(1000000, "End status");
     //$this->close(); 
-	$this->process_responses($responses);
-	$responseobj = new StdClass();
-  	$responseobj->command = $command;
-  	$responseobj->response = $responses;
-	$responseobj->status = $this->status;
-	return $responseobj;
+		$this->process_responses($responses);
+		$responseobj = new StdClass();
+		$responseobj->command = $command;
+		$responseobj->response = $responses;
+		$responseobj->status = $this->status;
+		return $responseobj;
 	}
 
 
@@ -116,9 +105,7 @@ class mochad_client {
 	  	}
 	  }
 	  
-	  
 	  return $this->sendcommand($commands);
-
 	}
 	
 	
@@ -156,7 +143,9 @@ class mochad_client {
 						$status = explode(',',$matches[2]);
 						foreach($status as $value) {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
-								$this->status[$housecode][($keyvalue[1])] = intval($keyvalue[2]);
+								$device = new StdClass;
+								$device->status = intval($keyvalue[2]);
+								$this->status[$housecode][($keyvalue[1])] = $device;
 							}
 						}
 						//echo print_r($matches,TRUE);
@@ -173,11 +162,11 @@ class mochad_client {
 						$status = explode(',',$matches[2]);
 						foreach($status as $value) {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
-								$this->status[$housecode][($keyvalue[1])] = $keyvalue[2];
+								$device = new StdClass;
+								$device->status = intval($keyvalue[2]);
+								$this->status[$housecode][($keyvalue[1])] = $device;
 							}
 						}
-						//$data = $responses[$index]->data;
-						//echo print_r($matches,TRUE);
 						$index++;
 					}
 					$index--;
@@ -189,16 +178,8 @@ class mochad_client {
 				
 				default :
 					//echo ($response->data).':';
-				
-			
 			}
-			
-			//return $this->status;
-			//echo $response->data;
 		}
-		
-		//print_r($this->status);
-		//return "ok";
 		return $this->status;
 	}
 

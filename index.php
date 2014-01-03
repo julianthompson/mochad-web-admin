@@ -12,8 +12,8 @@
   foreach ($devices as &$device) {
     $housecode = strtoupper($device->housecode);
     $code = $device->code;
-    if (isset($responseobj->status[$housecode][$code])) {
-  		$device->status = $responseobj->status[$housecode][$code]==1?TRUE:FALSE;
+    if (isset($responseobj->status[$housecode][$code]->status)) {
+  		$device->status = $responseobj->status[$housecode][$code]->status==1?TRUE:FALSE;
   	} else {
   		$device->status = FALSE;
   	}
@@ -37,7 +37,8 @@
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="./script/bootstrap-switch/build/css/bootstrap3/bootstrap-switch.css">
 		<link rel="stylesheet" href="./style/base.css"/>
-                <link rel="stylesheet" href="./script/slider/css/slider.css">
+		<link rel="stylesheet" href="./script/slider/css/bootstrap-slider.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 	</head>
 	
 	<body>
@@ -62,11 +63,17 @@
 			  </div>			
 				<?php if ($device->dimmable) : ?>
 				<div class="dimmer-group">
+				  <i class="fa fa-moon-o dimbulb"></i>
+				  <!--
 					<a href="./command.php?t=<?php print $housecode;?>&c=dim" data-command="dim" class="button button-dim">-</a> 
+					-->
 					<div class="dimmer-wrapper">
-						<div class="dimmer" id="dimmer-<?php print $housecode;?>" data-value="<?php print ($device->status)?100:0;?>"></div>
+						<input class="dimmer" id="dimmer-<?php print $housecode;?>" data-slider-id='slider-<?php print $housecode;?>' type="text" data-slider-min="0" data-slider-max="100" data-slider-enabled="<?php print ($device->status)?'true':'false';?>" data-slider-step="5" data-slider-value="<?php print ($device->status)?100:0;?>"/>
 					</div>
+				  <i class="fa fa-sun-o brightbulb"></i>
+					<!--
 					<a href="./command.php?t=<?php print $housecode;?>&c=bright" data-command="bright" class="button button-bri">+</a> 
+					-->
 				</div>
 				<?php endif;?>
 				<?php if (FALSE)  : ?>

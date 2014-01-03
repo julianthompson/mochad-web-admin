@@ -102,33 +102,27 @@ $(document).ready(function() {
 	});
 
 	function process_status(status) {
-		$.each(status, function(housecode) {
-			$.each(this, function(index) {
-				var id = housecode+index;
-				id = id.toLowerCase();
+		$.each(status, function(nodeid) {
 				
-				var $brightness = $('#node-'+id+'-brightness')[0];
-				var $dimmer = $('#dimmer-'+id);
-				var sliderobj = ($dimmer.length>0) ? $dimmer.data('slider'):null;
+			var $brightness = $('#node-'+nodeid+'-brightness')[0];
+			var $dimmer = $('#dimmer-'+nodeid);
+			var sliderobj = ($dimmer.length>0) ? $dimmer.data('slider'):null;
+			var $node = $('.node[data-id='+nodeid+']');
 
-				console.log('slider', sliderobj);
+			console.log('slider', sliderobj);
 
-				if (sliderobj) {
-						sliderobj.setValue(this.level);
-				}
-				
-				//console.log(id);
-				//console.log(this);
-				if (this.status==0) {
-					if (sliderobj) {
-						sliderobj.disable();
-					}
-					$('.node[data-id='+id+']').removeClass('status-on');
-				} else {
-					if (sliderobj) sliderobj.enable();
-					$('.node[data-id='+id+']').addClass('status-on');
-				}
-			});
+			if (sliderobj) {
+					sliderobj.setValue(this.level);
+			}
+			
+			if (this.status==0) {
+				if (sliderobj) sliderobj.disable();
+				$node.removeClass('status-on');
+			} else {
+				if (sliderobj) sliderobj.enable();
+				$node.addClass('status-on');
+			}
+			
 		});
 	}
 

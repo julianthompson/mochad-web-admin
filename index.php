@@ -9,11 +9,11 @@
 	$mochadclient->dummyoutput = MOCHAD_DUMMY_OUTPUT;
   $responseobj = $mochadclient->getstatus();
   $mochadclient->close();
-  foreach ($devices as &$device) {
-    $housecode = strtoupper($device->housecode);
-    $code = $device->code;
-    if (isset($responseobj->status[$housecode][$code]->status)) {
-  		$device->status = $responseobj->status[$housecode][$code]->status==1?TRUE:FALSE;
+  
+  //print_r($responseobj);die();
+  foreach ($devices as $devicecode=>&$device) {
+    if (isset($responseobj->status[$devicecode]->status)) {
+  		$device->status = $responseobj->status[$devicecode]->status==1?TRUE:FALSE;
   	} else {
   		$device->status = FALSE;
   	}

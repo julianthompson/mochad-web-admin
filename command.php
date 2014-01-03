@@ -8,6 +8,7 @@
 	$command = 'st';
 	$response = new StdClass;
 	$target = isset($_GET['t'])?trim($_GET['t']):FALSE;
+	
 	//die($target);
 	switch($_GET['c']) {
 
@@ -23,6 +24,9 @@
 			$response = $mochadclient->setstate($target,FALSE,$_GET['l']);
 	    break;
 	    
+	  case 'zonecommand' :
+			$response = $mochadclient->setstate($target,FALSE,$_GET['l']);	  	
+	  	break;  
 	}	
 	
   print json_encode($response);

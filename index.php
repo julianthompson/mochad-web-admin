@@ -54,7 +54,12 @@
 			<?php endif; ?>
 			
 			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span> <?php if ($device->dimmable) : ?><span class="brightnesslevel" id="node-<?php print $housecode;?>-brightness"><?php print ($devicestate->level);?>%</span><?php endif;?></h2>
-			<div class="location"><?php print $device->location;?></div>
+			<div class="location">
+				<?php
+					$zonenames = array_intersect_key($zones,array_flip($device->zones));
+					print implode(', ',$zonenames);
+				?>
+			</div>
 			<div class="controls">
 				<div class="checkbox-wrapper make-switch onoffswitch" data-target="<?php print $housecode;?>">
 			  <input type="checkbox" value="1" <?php print ($devicestate->status)?"checked":"";?> />	
@@ -76,20 +81,15 @@
 		
 		<?php endforeach; ?>
 	
-	
-		<?php foreach ($channels as $channelname=>$channel) : ?>
-	
+		<?php if (FALSE) : ?>
+		<?php foreach ($zones as $zonename) : ?>
 		<div class="channel">
-			<h2><?php print $channelname;?></h2>
+			<h2><?php print $zonename;?></h2>
 			<div class="controls">
-				<a href="./command.php?t=<?php print $channel;?>&c=all_units_on" class="button">All on</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=all_units_off" class="button">All off</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=all_lights_on" class="button">All lights on</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=all_lights_off" class="button">All lights off</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=on" class="button">On</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=off" class="button">Off</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=dim" class="button">-</a>
-				<a href="./command.php?t=<?php print $channel;?>&c=bright" class="button">+</a>
+				<a href="./command.php?t=<?php print $zonename;?>&c=all_units_on" class="button">All on</a>
+				<a href="./command.php?t=<?php print $zonename;?>&c=all_units_off" class="button">All off</a>
+				<a href="./command.php?t=<?php print $zonename;?>&c=all_lights_on" class="button">Lights on</a>
+				<a href="./command.php?t=<?php print $zonename;?>&c=all_lights_off" class="button">Lights off</a>
 			</div>
 		</div>
 		
@@ -101,6 +101,7 @@
 			<hr/>
 			<pre id="responsedata"><?php print_r($responseobj);?></pre>
 		</div>
+		<?php endif; ?>
 		
 	</body>
 

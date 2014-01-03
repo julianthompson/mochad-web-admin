@@ -60,7 +60,6 @@
 			  <input type="checkbox" value="1" <?php print ($devicestate->status)?"checked":"";?> />	
 			  </div>		
 			  
-			  	
 				<?php if ($device->dimmable) : ?>
 				<div class="dimmer-group">
 				  <i class="fa fa-moon-o dimbulb"></i>
@@ -70,7 +69,6 @@
 				  <i class="fa fa-sun-o brightbulb"></i>
 				</div>
 				<?php endif;?>
-				
 				
 			</div>
 		

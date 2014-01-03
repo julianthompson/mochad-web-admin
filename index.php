@@ -97,9 +97,7 @@
 		<?php endif; ?>	
 	
 		<div class="command">
-			<h2>Response</h2>
-			<hr/>
-			<pre id="responsedata"><?php print_r($responseobj);?></pre>
+			<pre id="responsedata"><?php print json_encode($responseobj);?></pre>
 		</div>
 
 		

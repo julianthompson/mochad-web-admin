@@ -27,6 +27,11 @@ div.command {
 	margin: 0 10px 10px;
 	min-width:300px;
 }
+
+div.command {
+	padding: 0;
+}
+
 div.device.status-on a.button-on,
 div.device.status-off a.button-off {
 	background-color: white;

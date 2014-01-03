@@ -16,7 +16,7 @@ $(document).ready(function() {
 			dataType: "json",
 			success: function(data, textStatus, jqXHR) {
 				console.log(data);
-		  	$('#responsedata').html('<pre>'+JSON.stringify(data)+'</pre>');
+		  	$('#responsedata').html(JSON.stringify(data));
 				process_status(data.status);
 			}
 		});

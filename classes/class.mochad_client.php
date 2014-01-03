@@ -145,6 +145,7 @@ class mochad_client {
 							if (preg_match('@(\d+)=(\d+)@',$value, $keyvalue)) {
 								$device = new StdClass;
 								$device->status = intval($keyvalue[2]);
+								if (!isset($device->level)) $device->level = ($device->status==1)?100:0;
 								$this->status[$housecode][($keyvalue[1])] = $device;
 							}
 						}

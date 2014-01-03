@@ -55,7 +55,7 @@
 			<pre><?php print_r($device);?></pre>
 			<?php endif; ?>
 			
-			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span> <?php if ($device->dimmable) : ?><span class="brightnesslevel"><?php print ($device->status)?100:0;?>%</span><?php endif;?></h2>
+			<h2><?php print $device->title;?> <span class="housecode"><?php print strtoupper($housecode);?></span> <?php if ($device->dimmable) : ?><span class="brightnesslevel" id="node-<?php print $housecode;?>-brightness"><?php print ($device->status)?100:0;?>%</span><?php endif;?></h2>
 			<div class="location"><?php print $device->location;?></div>
 			<div class="controls">
 				<div class="checkbox-wrapper make-switch onoffswitch" data-target="<?php print $housecode;?>">

@@ -106,13 +106,26 @@ $(document).ready(function() {
 			$.each(this, function(index) {
 				var id = housecode+index;
 				id = id.toLowerCase();
+				
+				var $brightness = $('#node-'+id+'-brightness')[0];
+				var $dimmer = $('#dimmer-'+id);
+				var sliderobj = ($dimmer.length>0) ? $dimmer.data('slider'):null;
+
+				console.log('slider', sliderobj);
+
+				if (sliderobj) {
+						sliderobj.setValue(this.level);
+				}
+				
 				//console.log(id);
 				//console.log(this);
 				if (this.status==0) {
-					//$('.node[data-id='+id+']').find('.slider').slider('disable');
+					if (sliderobj) {
+						sliderobj.disable();
+					}
 					$('.node[data-id='+id+']').removeClass('status-on');
 				} else {
-					//$('.node[data-id='+id+']').find('.slider').slider('enable');
+					if (sliderobj) sliderobj.enable();
 					$('.node[data-id='+id+']').addClass('status-on');
 				}
 			});

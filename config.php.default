@@ -1,0 +1,76 @@
+<?php
+define('MOCHAD_CLIENT_DEBUG',FALSE);
+define('MOCHAD_DUMMY_OUTPUT',FALSE);
+
+$devices = array(
+	'a1' => new JSObject(array(
+		'title' => "Standard Lamp",
+		'zones' =>  array('downstairs','lounge'),
+		'code' => 1,
+		'housecode' => 'a',
+		'description' => "",
+		'dimmable' => TRUE,
+		'currentlevel' => 100,
+		'lastupdate' => 0
+	)), 
+		'a2' => new JSObject(array(
+		'title' => "Media System",
+		'zones' => array('downstairs','lounge'),
+		'code' => 2,
+		'housecode' => 'a',
+		'description' => "",
+		'dimmable' => FALSE,
+		'currentlevel' => 100,
+		'lastupdate' => 0
+	)), 
+		'a3' => new JSObject(array(
+		'title' => "Ikea Lamp",
+		'zones' => array('downstairs','diningroom'),
+		'code' => 3,
+		'housecode' => 'a',
+		'description' => "",
+		'dimmable' => TRUE,
+		'currentlevel' => 100,
+		'lastupdate' => 0
+	)), 
+		'b1' => new JSObject(array(
+		'title' => "Bedside Lamp",
+		'code' => 1,
+		'housecode' => 'b',
+		'zones' => array('upstairs','bedroom1'),
+		'description' => "",
+		'dimmable' => TRUE,
+		'currentlevel' => 100,
+		'lastupdate' => 0 
+	)),
+		'b2' => new JSObject(array(
+		'title' => "Screen",
+		'zones' =>  array('upstairs','bedroom1'),
+		'code' => 2,
+		'housecode' => 'b',
+		'description' => "",
+		'dimmable' => FALSE,
+		'currentlevel' => 100,
+		'lastupdate' => 0
+	)),
+		'b3' => new JSObject(array(
+		'title' => "Bedside lamp",
+		'zones' => array('upstairs','bedroom2'),
+		'code' => 3,
+		'housecode' => 'b',
+		'description' => "",
+		'dimmable' => FALSE,
+		'currentlevel' => 100,
+		'lastupdate' => 0
+	)) 
+);
+
+$zones = array(
+	'lounge' => 'Lounge',
+	'diningroom' => 'Dining Room',
+	'bedroom1' => 'Bedroom 1',
+	'bedroom2' => 'Bedroom 2',
+	'bedroom3' => 'Bedroom 2',
+	'upstairs' => 'Upstairs',
+	'downstairs' => 'Downstairs'
+); 

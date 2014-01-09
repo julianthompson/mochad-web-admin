@@ -1,7 +1,9 @@
 <?php
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
+
 error_reporting(-1);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 define('MOCHAD_CLIENT_NEWLINE', "\n");
 define('MOCHAD_CLIENT_DATA_FILE', './data/mochaddata');
@@ -155,9 +157,7 @@ class mochad_client {
 				case 'Device status':
 					//echo "Device status data :\n";
 					//is last line?
-					if ($index>=$responselen) break;
-					$this->logentry($index);
-					$this->logentry($responselen);
+					if (!isset($responses[($index+1)])) break;
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];
@@ -183,9 +183,7 @@ class mochad_client {
 				case 'Security sensor status':
 					//echo "Security sensor status :\n";
 					//is last line?
-					if ($index>=$responselen) break;
-					$this->logentry($index);
-					$this->logentry($responselen);
+					if (!isset($responses[($index+1)])) break;
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];

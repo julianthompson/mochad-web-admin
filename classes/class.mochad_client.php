@@ -120,6 +120,7 @@ class mochad_client {
 	  		  $this->status[$devicecode]->level = intval($level);
 	  		} else {
 	  			$commands[] = "pl {$devicecode} ".($state?'on':'off');
+	  			$this->status[$devicecode]->level = ($state?100:0);
 	  		}
 	  		$zones[($matches[1])]=TRUE;
 	  	}

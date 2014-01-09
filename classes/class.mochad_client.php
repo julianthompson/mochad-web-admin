@@ -113,9 +113,9 @@ class mochad_client {
 	  			$currentlevel = (30/100)*$this->status[$devicecode]->level;
 	  			$delta = intval($targetlevel-$currentlevel);
 	  			if ($delta>0) {
-	  		  	$commands[] = "pl {$devicecode} bright " . $level;
+	  		  	$commands[] = "pl {$devicecode} bright " . $delta;
 	  		  } elseif ($delta<0) {
-	  		  	$commands[] = "pl {$devicecode} dim " . $level;
+	  		  	$commands[] = "pl {$devicecode} dim " . $delta;
 	  		  }
 	  		  $this->status[$devicecode]->level = intval($level);
 	  		} else {

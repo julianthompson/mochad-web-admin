@@ -156,6 +156,8 @@ class mochad_client {
 					//echo "Device status data :\n";
 					//is last line?
 					if ($index>=$responselen) break;
+					$this->logentry($index);
+					$this->logentry($responselength);
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];

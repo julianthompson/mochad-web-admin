@@ -157,7 +157,7 @@ class mochad_client {
 					//is last line?
 					if ($index>=$responselen) break;
 					$this->logentry($index);
-					$this->logentry($responselength);
+					$this->logentry($responselen);
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];
@@ -185,7 +185,7 @@ class mochad_client {
 					//is last line?
 					if ($index>=$responselen) break;
 					$this->logentry($index);
-					$this->logentry($responselength);
+					$this->logentry($responselen);
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];

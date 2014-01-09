@@ -148,7 +148,7 @@ class mochad_client {
 				
 				case 'Device status':
 					//echo "Device status data :\n";
-
+					if ($index>=$responselen) break;
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];
@@ -173,6 +173,7 @@ class mochad_client {
 				
 				case 'Security sensor status':
 					//echo "Security sensor status :\n";
+					if ($index>=$responselen) break;
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];

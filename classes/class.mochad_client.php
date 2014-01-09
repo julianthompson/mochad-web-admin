@@ -14,6 +14,7 @@ class mochad_client {
 	public $status = array();
 	private $selected = array();
 	public $dummyoutput = FALSE;
+	public $log = array();
 	
 	
 	function __construct($host="127.0.0.1",$port="1099") {
@@ -81,7 +82,12 @@ class mochad_client {
 		$responseobj->command = $command;
 		$responseobj->response = $responses;
 		$responseobj->status = $this->status;
+		$responseobj->log = $this->log;
 		return $responseobj;
+	}
+	
+	function logentry($logentry) {
+		$this->log[] = $logentry;
 	}
 
 
@@ -149,7 +155,7 @@ class mochad_client {
 				case 'Device status':
 					//echo "Device status data :\n";
 					//is last line?
-					if ($index==$responselen) break;
+					if ($index>=$responselen) break;
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];
@@ -175,7 +181,9 @@ class mochad_client {
 				case 'Security sensor status':
 					//echo "Security sensor status :\n";
 					//is last line?
-					if ($index==$responselen) break;
+					if ($index>=$responselen) break;
+					$this->logentry($index);
+					$this->logentry($responselength);
 					$index++;
 					while (preg_match('@^House\s([A-Z]):\s(.*)$@', $responses[$index]->data, $matches)) {
 					  $housecode = $matches[1];

@@ -111,11 +111,11 @@ class mochad_client {
 	  			if (!$this->status[$devicecode]) $this->status[$devicecode] = new StdClass;
 	  			$targetlevel = (30/100)*$level;
 	  			$currentlevel = (30/100)*$this->status[$devicecode]->level;
-	  			$delta = intval(abs($targetlevel-$currentlevel));
+	  			$delta = intval($targetlevel-$currentlevel);
 	  			if ($delta>0) {
-	  		  	$commands[] = "pl {$devicecode} bright " . $delta;
+	  		  	$commands[] = "pl {$devicecode} bright " . abs($delta);
 	  		  } elseif ($delta<0) {
-	  		  	$commands[] = "pl {$devicecode} dim " . $delta;
+	  		  	$commands[] = "pl {$devicecode} dim " . abs($delta);
 	  		  }
 	  		  $this->status[$devicecode]->level = intval($level);
 	  		} else {

@@ -74,7 +74,7 @@ class mochad_client {
 	    stream_set_timeout($this->socket, 1);
 	    usleep(800);
     }
-    $responses = $this->readresponse(1000000, "End status");
+    $responses = $this->readresponse(1500000, "End status");
     //$this->close(); 
 		$this->process_responses($responses);
 		$responseobj = new StdClass();

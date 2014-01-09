@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+  $(window).focus(function() {
+      console.log('Focus');
+  });
+
+  $(window).blur(function() {
+      console.log('Blur');
+  });
+  
+ 	$(window).resize(function() {
+      console.log('Resize');
+  });
 
 	$('.make-switch').on('switch-change', function (e, data) {
 		var $el = $(data.el)

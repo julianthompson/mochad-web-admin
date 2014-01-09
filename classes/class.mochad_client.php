@@ -109,7 +109,14 @@ class mochad_client {
 	  		if ($level!==FALSE) {
 	  			//$status[$housecode][($keyvalue[1])]->level
 	  			if (!$this->status[$devicecode]) $this->status[$devicecode] = new StdClass;
-	  		  $commands[] = "pl {$devicecode} xdim " . $level;
+	  			$targetlevel = (30/100)*$level;
+	  			$currentlevel = (30/100)*$this->status[$devicecode]->level;
+	  			$delta = intval($targetlevel-$currentlevel);
+	  			if ($delta>0) {
+	  		  	$commands[] = "pl {$devicecode} bright " . $level;
+	  		  } elseif ($delta<0) {
+	  		  	$commands[] = "pl {$devicecode} dim " . $level;
+	  		  }
 	  		  $this->status[$devicecode]->level = intval($level);
 	  		} else {
 	  			$commands[] = "pl {$devicecode} ".($state?'on':'off');

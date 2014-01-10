@@ -9,13 +9,17 @@
 	$mochadclient->dummyoutput = MOCHAD_DUMMY_OUTPUT;
   $responseobj = $mochadclient->getstatus();
   $mochadclient->close();
+  
+  $networkname = isset($networkname)?$networkname:'X10';
+  
+  $title = $networkname . ' Appliance Control';
 
 ?>
 
 <html>
 
 	<head>
-		<title>X10 Appliance Control</title>
+		<title><?php print $title;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>

@@ -38,7 +38,7 @@
 	
 	<body>
 
-		<h1>X10 Appliance Control</h1>
+		<h1><?php print $title;?></h1>
 		
 		<?php //print_r($devices);?>
 	
